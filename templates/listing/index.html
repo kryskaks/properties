@@ -1,0 +1,41 @@
+{% extends "listing/base.html" %}
+{% load pagination_tags %}
+
+{% block title %}List of properties{% endblock %}
+
+{% block content %}
+{% if properties %}
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th><th>City</th><th>Street</th><th>Year</th>
+    </tr>
+    </thead>
+    {% autopaginate all_properties 18 %}
+    
+    {% for property in all_properties %}
+    
+        <tr>
+            <td><a href="/properties/{{ property.id }}/">{{property.id}}</a></td>
+            <td>{{ property.city }}</td>
+            <td>{{ property.street_name }}</td>
+            <td>{{ property.year_built }}</td>
+        </tr>       
+    
+    {% endfor %}    
+    </table>
+
+    {% paginate %}
+    
+    <a href="/properties/delete/" id="delete-all">Delete all properties</a>    
+
+{% else %}
+    <p>There are no available properties.</p>
+    <form action="/properties/init/" method="post">
+    {% csrf_token %}
+    <label>File path:</label><input type="text" name="file_path"/></br>
+    <input type="submit" value="Init DB from file" />
+    </form>
+{% endif %}
+
+{% endblock %}

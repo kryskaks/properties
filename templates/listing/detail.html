@@ -1,0 +1,15 @@
+{% extends "listing/base.html" %}
+
+{% block title %}Property {{property.id}}{% endblock %}
+
+{% block content %}
+<h2>Property {{property.id}}</h2>
+<div id="text">
+    City: {{property.city}}</br>
+    Bedrooms: {{property.bedrooms}}</br>
+    Street_name: {{property.street_name}}</br>
+    Year_built: {{property.year_built}}</br>
+</div>
+</br>
+<a href="/properties/">All properties</a>
+{% endblock %}
